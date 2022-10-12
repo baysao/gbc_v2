@@ -10,7 +10,7 @@ fi
 
 #cd $ROOT_DIR
 
-LUA_BIN=$ROOT_DIR/bin/openresty/luajit/bin/luajit
+LUA_BIN=/usr/local/openresty/luajit/bin/luajit
 
 TMP_DIR=$ROOT_DIR/tmp
 CONF_DIR=$ROOT_DIR/gbc/conf
