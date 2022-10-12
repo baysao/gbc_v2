@@ -94,7 +94,7 @@ _env() {
 	rm -fr $PYTHON_ENV_DIR
 	mv virtualenv-$VIRTUALENV_VER $PYTHON_ENV_DIR
 	cd $PYTHON_ENV_DIR
-	rm -f ~/.asdf/shims/python*
+
 	python virtualenv.py --no-download gbc
 	cd gbc
 	source bin/activate
@@ -117,15 +117,15 @@ _lualib() {
 	cd $BUILD_DIR
 	tar zxf $SRC_DIR/build/install/luasocket-$LUASOCKET_VER.tar.gz
 	cd luasocket-$LUASOCKET_VER
-	# $SED_BIN "s#LUAPREFIX_linux?=/usr/local#LUAPREFIX_linux?=$DEST_BIN_DIR/openresty/luajit#g" src/makefile
+	mkdir -p $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/
+	$SED_BIN "s#LUAPREFIX_linux?=/usr/local#LUAPREFIX_linux?=$DEST_BIN_DIR/openresty/luajit#g" src/makefile
 	# $SED_BIN "s#LUAINC_linux_base?=/usr/include#LUAINC_linux_base?=$DEST_BIN_DIR/openresty/luajit/include#g" src/makefile
 	# $SED_BIN "s#\$(LUAINC_linux_base)/lua/\$(LUAV)#\$(LUAINC_linux_base)/luajit-2.1#g" src/makefile
-	mkdir -p $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/
+
 	make -j$(nproc) && make install-unix
 
-	cp -f src/*.so $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/.
-	echo $PWD
-	exit 0
+	# cp -f src/*.so $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/.
+
 	# install luabson
 	echo ""
 	echo -e "[\033[32mINSTALL\033[0m] luabson"
@@ -133,11 +133,11 @@ _lualib() {
 	cd $BUILD_DIR
 	tar zxf luabson-$LUABSON_VER.tar.gz
 	cd lua-bson
-	if [ $OSTYPE == "MACOS" ]; then
-		$SED_BIN "s#-I/usr/local/include -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib -lluajit-5.1#g" Makefile
-	else
-		$SED_BIN "s#-I/usr/local/include -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib#g" Makefile
-	fi
+	# if [ $OSTYPE == "MACOS" ]; then
+	# 	$SED_BIN "s#-I/usr/local/include -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib -lluajit-5.1#g" Makefile
+	# else
+	$SED_BIN "s#-I/usr/local/include -I/usr/include/luajit-2.1 -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib#g" Makefile
+	# fi
 	make linux
 
 	# cp -f bson.so $DEST_BIN_DIR/openresty/lualib
