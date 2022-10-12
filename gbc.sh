@@ -136,7 +136,7 @@ _lualib() {
 	# if [ $OSTYPE == "MACOS" ]; then
 	# 	$SED_BIN "s#-I/usr/local/include -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib -lluajit-5.1#g" Makefile
 	# else
-	$SED_BIN "s#-I/usr/local/include -I/usr/include/luajit-2.1 -L/usr/local/bin -llua53#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib#g" Makefile
+	$SED_BIN "s#-I/usr/local/include -I/usr/include/luajit-2.1 -L/usr/local/bin -llua5.3#-I$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib#g" Makefile
 	# fi
 	make linux
 
