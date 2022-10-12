@@ -164,13 +164,13 @@ function runTests() {
 
 }
 function updateConfigs() {
-	if [ ! -f "/tmp/updateconfig.lock" ]; then
-		touch /tmp/updateconfig.lock
+	# if [ ! -f "/tmp/updateconfig.lock" ]; then
+	# 	touch /tmp/updateconfig.lock
 		# echo "ROOT_DIR:$ROOT_DIR"
 		if [ -z "$BIND_ADDRESS" ]; then BIND_ADDRESS="0.0.0.0"; fi
 		$LUA_BIN -e "BIND_ADDRESS=\"$BIND_ADDRESS\";ROOT_DIR='$ROOT_DIR'; DEBUG=$DEBUG; dofile('$ROOT_DIR/gbc/bin/shell_func.lua'); updateConfigs()"
-		rm /tmp/updateconfig.lock
-	fi
+	# 	rm /tmp/updateconfig.lock
+	# fi
 }
 
 function startSupervisord() {
