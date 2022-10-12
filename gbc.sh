@@ -90,7 +90,7 @@ _env() {
 	#rm ~/.asdf/shims/python*
 
 	tar xfz $SRC_DIR/build/install/virtualenv-$VIRTUALENV_VER.tar.gz
-	PYTHON_ENV_DIR=$DEST_BIN_DIR/python_env
+	PYTHON_ENV_DIR=$DEST_BIN_DIR/bin/python_env
 	rm -fr $PYTHON_ENV_DIR
 	mv virtualenv-$VIRTUALENV_VER $PYTHON_ENV_DIR
 	cd $PYTHON_ENV_DIR
@@ -195,6 +195,7 @@ _lualib() {
 
 	# cp -f process.so $DEST_BIN_DIR/openresty/lualib
 	cp -f process.so $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1
+
 }
 _keydb() {
 	# ----
@@ -234,14 +235,14 @@ _redis() {
 	tar zxf $SRC_DIR/build/install/redis-$REDIS_VER.tar.gz
 	cd redis-$REDIS_VER
 	#$SRC_DIR/build/patch_redis_luajit.sh
-	mkdir -p $DEST_BIN_DIR/redis/bin
+	mkdir -p $DEST_BIN_DIR/bin/redis/bin
 
 	make -j$(nproc)
-	cp -f src/redis-server $DEST_BIN_DIR/redis/bin
-	cp -f src/redis-cli $DEST_BIN_DIR/redis/bin
-	cp -f src/redis-sentinel $DEST_BIN_DIR/redis/bin
-	cp -f src/redis-benchmark $DEST_BIN_DIR/redis/bin
-	cp -f src/redis-check-aof $DEST_BIN_DIR/redis/bin
+	cp -f src/redis-server $DEST_BIN_DIR/bin/redis/bin
+	cp -f src/redis-cli $DEST_BIN_DIR/bin/redis/bin
+	cp -f src/redis-sentinel $DEST_BIN_DIR/bin/redis/bin
+	cp -f src/redis-benchmark $DEST_BIN_DIR/bin/redis/bin
+	cp -f src/redis-check-aof $DEST_BIN_DIR/bin/redis/bin
 }
 _beanstalk() {
 	# ----
@@ -252,10 +253,10 @@ _beanstalk() {
 	cd $BUILD_DIR
 	tar zxf $SRC_DIR/build/install/beanstalkd-$BEANSTALKD_VER.tar.gz
 	cd beanstalkd-$BEANSTALKD_VER
-	mkdir -p $DEST_BIN_DIR/beanstalkd/bin
+	mkdir -p $DEST_BIN_DIR/bin/beanstalkd/bin
 
 	make -j$(nproc)
-	cp -f beanstalkd $DEST_BIN_DIR/beanstalkd/bin
+	cp -f beanstalkd $DEST_BIN_DIR/bin/beanstalkd/bin
 }
 _tools() {
 	mkdir -p $DEST_BIN_DIR/bin

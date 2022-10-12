@@ -14,13 +14,13 @@ ROOT_DIR=$(cd "$(dirname $0)" && pwd)
 
 mkdir -p $ROOT_DIR/logs/nginx $ROOT_DIR/db $ROOT_DIR/tmp
 source $ROOT_DIR/gbc/bin/shell_func.sh
-if [ ! -L "/massbit/massbitroute/app/src/gbc" ]; then
-	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
-fi
+# if [ ! -L "/massbit/massbitroute/app/src/gbc" ]; then
+# 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
+# fi
 
-if [ ! -L "/usr/local/openresty" ]; then
-	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
-fi
+# if [ ! -L "/usr/local/openresty" ]; then
+# 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
+# fi
 
 # if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
 # 	loadEnv $ROOT_DIR >/dev/null
