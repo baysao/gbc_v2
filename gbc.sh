@@ -74,7 +74,7 @@ mkdir -p $BUILD_DIR
 #cp -f $SRC_DIR/build/*.tar.gz $BUILD_DIR
 
 mkdir -p $DEST_DIR
-mkdir -p $DEST_BIN_DIR
+mkdir -p $DEST_BIN_DIR/bin
 
 cd $BUILD_DIR
 
