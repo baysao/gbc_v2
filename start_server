@@ -14,8 +14,15 @@ ROOT_DIR=$(cd "$(dirname $0)" && pwd)
 
 mkdir -p $ROOT_DIR/logs/nginx $ROOT_DIR/db $ROOT_DIR/tmp
 source $ROOT_DIR/gbc/bin/shell_func.sh
-cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* /usr/local/openresty/luajit/share/lua/5.1/
-cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* /usr/local/openresty/luajit/lib/lua/5.1/
+if [ -e "$ROOT_DIR/bin/openresty" ]; then
+	cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/share/lua/5.1/
+	cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/lib/lua/5.1/
+else
+	echo "Missing $ROOT_DIR/bin/openresty"
+	exit 1
+
+fi
+
 if [ ! -f "/usr/bin/python" ]; then
 	apt update
 	apt install -y python-is-python2
