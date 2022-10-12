@@ -94,6 +94,7 @@ _env() {
 	rm -fr $PYTHON_ENV_DIR
 	mv virtualenv-$VIRTUALENV_VER $PYTHON_ENV_DIR
 	cd $PYTHON_ENV_DIR
+	rm -f ~/.asdf/shims/python*
 	python virtualenv.py --no-download gbc
 	cd gbc
 	source bin/activate
