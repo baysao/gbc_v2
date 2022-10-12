@@ -14,36 +14,6 @@ ROOT_DIR=$(cd "$(dirname $0)" && pwd)
 
 mkdir -p $ROOT_DIR/logs/nginx $ROOT_DIR/db $ROOT_DIR/tmp
 source $ROOT_DIR/gbc/bin/shell_func.sh
-if [ -e "$ROOT_DIR/bin/openresty" ]; then
-	cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/share/lua/5.1/
-	cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/lib/lua/5.1/
-else
-	echo "Missing $ROOT_DIR/bin/openresty"
-	exit 1
-
-fi
-
-if [ ! -f "/usr/bin/python" ]; then
-	apt update
-	apt install -y python-is-python2
-fi
-
-# if [ ! -L "/massbit/massbitroute/app/src/gbc" ]; then
-# 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
-# fi
-
-# if [ ! -L "/usr/local/openresty" ]; then
-# 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
-# fi
-
-# if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
-# 	loadEnv $ROOT_DIR >/dev/null
-# 	sleep 1
-# 	if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
-# 		echo "$ROOT_DIR/src/env.lua not exists"
-# 		exit 1
-# 	fi
-# fi
 
 if [ $? -ne 0 ]; then
 	echo "Terminating..." >&2

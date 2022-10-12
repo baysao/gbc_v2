@@ -4,55 +4,9 @@ declare -i DEBUG=0
 ROOT_DIR=$(cd "$(dirname $0)" && pwd)
 
 source $ROOT_DIR/gbc/bin/shell_func.sh
-# source $ROOT_DIR/scripts/base.sh
-cd $ROOT_DIR
-mkdir -p $ROOT_DIR/tmp $ROOT_DIR/logs/nginx $ROOT_DIR/logs $ROOT_DIR/db
-if [ -e "$ROOT_DIR/bin/openresty" ]; then
-	cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/share/lua/5.1/
-	cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/lib/lua/5.1/
-else
-	echo "Missing $ROOT_DIR/bin/openresty"
-	exit 1
-fi
 
-if [ ! -f "/usr/bin/python" ]; then
-	apt update
-	apt install -y python-is-python2
-fi
-
-# if [ ! -L "/massbit/massbitroute/app/src/gbc" ]; then
-# 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
-# fi
-
-# if [ ! -L "/usr/local/openresty" ]; then
-# 	ln -sf /massbit/massbitroute/app/gbc/bin/openresty /usr/local/openresty
-# fi
-# if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
-# 	loadEnv $ROOT_DIR >/dev/null
-# 	sleep 1
-# 	if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
-# 		echo "$ROOT_DIR/src/env.lua not exists"
-# 		exit 1
-# 	fi
-# fi
 case "$1" in
-# install_libs)
-# 	apt install -y libmaxminddb-dev uuid-dev
-# 	for p in luafilesystem lpeg lua-messagepack; do
-# 		/usr/local/openresty/luajit/bin/luarocks install $p
-# 	done
-# 	exit 0
-# 	;;
 
-# _env)
-# 	loadEnv $ROOT_DIR >/dev/null
-# 	sleep 1
-# 	if [ ! -f "$ROOT_DIR/src/env.lua" ]; then
-# 		echo "$ROOT_DIR/src/env.lua not exists"
-# 		exit 1
-# 	fi
-# 	exit 0
-# 	;;
 _run_test)
 	shift
 	runOpenrestyTest $@

@@ -2,12 +2,4 @@
 
 ROOT_DIR=$(cd "$(dirname $0)" && pwd)
 source $ROOT_DIR/bin/shell_func.sh
-
-cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* /usr/local/openresty/luajit/share/lua/5.1/
-cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* /usr/local/openresty/luajit/lib/lua/5.1/
-if [ ! -f "/usr/bin/python" ]; then
-	apt update
-	apt install -y python-is-python2
-fi
-
 stopSupervisord
