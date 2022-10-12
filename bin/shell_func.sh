@@ -18,6 +18,7 @@ CONF_PATH=$CONF_DIR/config.lua
 VAR_SUPERVISORD_CONF_PATH=$TMP_DIR/supervisord.conf
 
 if [ -e "$ROOT_DIR/bin/openresty" ]; then
+	ln -sf $ROOT_DIR/bin/openresty /usr/local/openresty
 	cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/share/lua/5.1/
 	cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/lib/lua/5.1/
 	echo $ROOT_DIR/bin/openresty/v1.21.4.1/lib >/etc/ld.so.conf.d/0openresty.conf
