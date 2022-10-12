@@ -7,6 +7,8 @@ source $ROOT_DIR/gbc/bin/shell_func.sh
 # source $ROOT_DIR/scripts/base.sh
 cd $ROOT_DIR
 mkdir -p $ROOT_DIR/tmp $ROOT_DIR/logs/nginx $ROOT_DIR/logs $ROOT_DIR/db
+cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* /usr/local/openresty/luajit/share/lua/5.1/
+cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* /usr/local/openresty/luajit/lib/lua/5.1/
 # if [ ! -L "/massbit/massbitroute/app/src/gbc" ]; then
 # 	ln -sf /massbit/massbitroute/app/gbc /massbit/massbitroute/app/src/gbc
 # fi
