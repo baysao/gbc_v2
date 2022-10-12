@@ -123,8 +123,9 @@ _lualib() {
 	mkdir -p $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/
 	make -j$(nproc) && make install-unix
 
-	cp -f src/serial.so src/unix.so $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/.
-
+	cp -f src/*.so $DEST_BIN_DIR/openresty/luajit/lib/lua/5.1/socket/.
+	echo $PWD
+	exit 0
 	# install luabson
 	echo ""
 	echo -e "[\033[32mINSTALL\033[0m] luabson"
