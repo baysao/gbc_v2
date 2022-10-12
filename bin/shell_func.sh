@@ -21,7 +21,7 @@ if [ -e "$ROOT_DIR/bin/openresty" ]; then
 	ln -sf $ROOT_DIR/bin/openresty /usr/local/openresty
 	cp -rf $ROOT_DIR/gbc/openresty/luajit/share/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/share/lua/5.1/
 	cp -rf $ROOT_DIR/gbc/openresty/luajit/lib/lua/5.1/* $ROOT_DIR/bin/openresty/luajit/lib/lua/5.1/
-	echo $ROOT_DIR/bin/openresty/v1.21.4.1/lib >/etc/ld.so.conf.d/0openresty.conf
+	echo $(realpath $(realpath $ROOT_DIR/bin/openresty)/..)/lib >/etc/ld.so.conf.d/0openresty.conf
 	ldconfig
 	export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$ROOT_DIR/bin/openresty/bin:$ROOT_DIR/bin/openresty/luajit/bin:$ROOT_DIR/bin/openresty/nginx/sbin
 else
