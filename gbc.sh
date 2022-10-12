@@ -152,11 +152,12 @@ _lualib() {
 	cd pbc
 	make lib
 	cd binding/lua
-	if [ $OSTYPE == "MACOS" ]; then
-		$SED_BIN "s#/usr/local/include#$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib -lluajit-5.1#g" Makefile
-	else
-		$SED_BIN "s#/usr/local/include#$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1#g" Makefile
-	fi
+	# if [ $OSTYPE == "MACOS" ]; then
+	# 	$SED_BIN "s#/usr/local/include#$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1 -L$DEST_BIN_DIR/openresty/luajit/lib -lluajit-5.1#g" Makefile
+	# else
+	# 	$SED_BIN "s#/usr/local/include#$DEST_BIN_DIR/openresty/luajit/include/luajit-2.1#g" Makefile
+	$SED_BIN "s#/usr/local/include#/usr/include/luajit-2.1#g" Makefile
+	# fi
 	make
 
 	# cp -f protobuf.so $DEST_BIN_DIR/openresty/lualib
@@ -178,7 +179,7 @@ _lualib() {
 	echo "SRCDIR=src" >>Makefile
 	echo "TMPLDIR=tmpl" >>Makefile
 	echo "VARDIR=var" >>Makefile
-	echo "CFLAGS=-Wall -fPIC -O2 -I_GBC_CORE_ROOT_/openresty/luajit/include/luajit-2.1" >>Makefile
+	echo "CFLAGS=-Wall -fPIC -O2 -I/usr/include/luajit-2.1 -I_GBC_CORE_ROOT_/openresty/luajit/include/luajit-2.1" >>Makefile
 	echo "LDFLAGS=--shared -Wall -fPIC -O2 -L_GBC_CORE_ROOT_/openresty/luajit/lib" >>Makefile
 	if [ $OSTYPE == "MACOS" ]; then
 		echo "LIBS=-lluajit-5.1" >>Makefile
