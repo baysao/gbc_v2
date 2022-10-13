@@ -716,8 +716,8 @@ _updateNginxConfig = function()
 
     contents = string.gsub(contents, "[ \t]*#[ \t]*_MODULES_", _modules)
 
-    includes_eventinit[#includes_eventinit + 1] = "\n--_INCLUDE_SITES_EVENTINIT_"
-    contents = string.gsub(contents, "--_INCLUDE_SITES_EVENTINIT_", "\n" .. table.concat(includes_eventinit, "\n"))
+    includes_eventinit[#includes_eventinit + 1] = "\n#_INCLUDE_SITES_EVENTINIT_"
+    contents = string.gsub(contents, "#_INCLUDE_SITES_EVENTINIT_", "\n" .. table.concat(includes_eventinit, "\n"))
 
     includes_luainit[#includes_luainit + 1] = "\n--_INCLUDE_SITES_LUAINIT_"
     contents = string.gsub(contents, "--_INCLUDE_SITES_LUAINIT_", "\n" .. table.concat(includes_luainit, "\n"))

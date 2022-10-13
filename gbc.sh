@@ -12,17 +12,20 @@ SUPERVISOR_VER=4.1.0
 SUPERVISOR_VER=4.2.4
 
 REDIS_VER=5.0.5
+REDIS_VER=7.0.5
 
 # http://kr.github.io/beanstalkd/
 BEANSTALKD_VER=1.10.1
 # https://github.com/diegonehab/luasocket
 LUASOCKET_VER=3.0-rc1
+LUASOCKET_VER=3.1.0
 # https://github.com/cloudwu/lua-bson
 LUABSON_VER=20160519
 # https://github.com/cloudwu/pbc
 LUAPBC_VER=20160531
 # https://github.com/mah0x211/lua-process
 LUAPROCESS_VER=1.6.0
+LUAPROCESS_VER=1.9.1
 
 SRC_DIR=$1
 #$(cd "$(dirname $0)" && pwd)
