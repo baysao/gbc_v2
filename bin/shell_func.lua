@@ -590,6 +590,7 @@ _updateNginxConfig = function()
     local includes_luawinit = {}
     local includes_maininit = {}
     local includes_httpinit = {}
+
     local idx = 0
     for _site_name, __site_path in pairs(_sites) do
         local _site_path = ""
@@ -612,24 +613,8 @@ _updateNginxConfig = function()
             end
         end
 
-        -- print("cont:")
-        -- print(_continue)
-
         if _continue then
-            -- if string.find(_site_path, "..") then
-            --     local _abs_path = io.popen("realpath '" .. _site_path .. "'", "r"):read("a")
-            --     _abs_path = _abs_path:gsub("[\n\r]*$", "")
-            --     if _abs_path then
-            --         _site_path = _abs_path
-            --     end
-            -- end
-            -- print("site_path:" .. _site_path)
-
             _module_paths[#_module_paths + 1] = _get_absolute_path(_site_path)
-
-            -- print("module_paths")
-            -- print(inspect(_module_paths))
-            -- print(__site_path.luainit)
 
             if __site_path.luainit then
                 includes_luainit[#includes_luainit + 1] = __site_path.luainit
@@ -643,14 +628,6 @@ _updateNginxConfig = function()
             if __site_path.httpinit then
                 includes_httpinit[#includes_httpinit + 1] = __site_path.httpinit
             end
-            --            end
-            -- elseif type(__site_path) == "string" then
-            --     _continue = true
-            --     _site_path = SITES_DIR .. "/" .. __site_path
-            -- end
-            -- if _continue then
-            -- print(_site_name)
-            -- print(_site_path)
 
             local varSitePath = string.format("%s/site_http_%s.conf", TMP_DIR, _site_name)
             local varSiteRtmpPath = string.format("%s/site_rtmp_%s.conf", TMP_DIR, _site_name)
@@ -670,13 +647,10 @@ _updateNginxConfig = function()
 
             __site_path.package_path =
                 __site_path.package_path .. string.format("%s/lib/?.lua;%s/src/?.lua", _site_path, _site_path)
-            -- string.format("%s/lib/?.lua;%s/src/?.lua;%s/?.lua", _site_path, _site_path, _site_path)
+
             __site_path.package_cpath =
                 __site_path.package_cpath ..
                 string.format("%s/lib/?.so;%s/src/?.so", _site_path, _site_path, _site_path)
-            -- string.format("%s/lib/?.so;%s/src/?.so;%s/?.so", _site_path, _site_path, _site_path)
-            -- print("package_path:" .. __site_path.package_path)
-            -- print("package_path size:" .. string.len(__site_path.package_path))
             if __site_path.package_path then
                 __site_path.package_path = string.trim(__site_path.package_path)
                 if string.len(__site_path.package_path) > 0 then
@@ -684,7 +658,6 @@ _updateNginxConfig = function()
                 end
             end
 
-            -- string.format("%s/?.lua;%s/lib/?.lua;%s/src/?.lua", _site_path, _site_path, _site_path)
             if __site_path.package_cpath then
                 __site_path.package_cpath = string.trim(__site_path.package_cpath)
                 if string.len(__site_path.package_cpath) > 0 then
@@ -731,19 +704,15 @@ _updateNginxConfig = function()
     contents = string.gsub(contents, "lua_package_cpath '", "lua_package_cpath '" .. includes_cpath)
     contents = string.gsub(contents, "\n[ \t]*#[ \t]*_INCLUDE_SITES_ENTRY_", includes_site)
     contents = string.gsub(contents, "\n[ \t]*#[ \t]*_INCLUDE_RTMPS_ENTRY_", includes_rtmp)
-    -- print(contents)
-    -- print("-----------")
-    -- print(includes_stream)
-    -- print("-----------")
+
     contents = string.gsub(contents, "\n[ \t]*#[ \t]*_INCLUDE_STREAMS_ENTRY_", includes_stream)
-    -- print("-----------")
-    -- print(contents)
+
     if #includes_modules > 0 then
         _modules = _modules .. "\n" .. table.concat(includes_modules, "\n")
     end
 
     _modules = string.gsub(_modules, "_GBC_CORE_ROOT_", ROOT_DIR)
-    -- print(_modules)
+
     contents = string.gsub(contents, "[ \t]*#[ \t]*_MODULES_", _modules)
 
     includes_luainit[#includes_luainit + 1] = "\n--_INCLUDE_SITES_LUAINIT_"
