@@ -25,6 +25,7 @@ LUABSON_VER=20160519
 LUAPBC_VER=20160531
 # https://github.com/mah0x211/lua-process
 LUAPROCESS_VER=1.6.0
+LUAPROCESS_VER=1.7.0
 
 SRC_DIR=$1
 #$(cd "$(dirname $0)" && pwd)
