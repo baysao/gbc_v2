@@ -590,7 +590,7 @@ _updateNginxConfig = function()
     local includes_luawinit = {}
     local includes_maininit = {}
     local includes_httpinit = {}
-
+    local includes_eventinit = {}
     local idx = 0
     for _site_name, __site_path in pairs(_sites) do
         local _site_path = ""
@@ -616,6 +616,9 @@ _updateNginxConfig = function()
         if _continue then
             _module_paths[#_module_paths + 1] = _get_absolute_path(_site_path)
 
+            if __site_path.eventinit then
+                includes_eventinit[#includes_eventinit + 1] = __site_path.eventinit
+            end
             if __site_path.luainit then
                 includes_luainit[#includes_luainit + 1] = __site_path.luainit
             end
@@ -665,12 +668,10 @@ _updateNginxConfig = function()
                 end
             end
 
-            -- string.format("%s/?.so;%s/lib/?.so;%s/src/?.so", _site_path, _site_path, _site_path)
             includes_site[#includes_site + 1] = string.format("        include %s;", varSitePath)
             includes_rtmp[#includes_rtmp + 1] = string.format("        include %s;", varSiteRtmpPath)
             includes_stream[#includes_stream + 1] = string.format("        include %s;", varSiteStreamPath)
 
-            --local site_opt = _checkConfig(_site_path .. "/config.lua")
             _updateAppConfig(_site_name, _site_path, idx)
             idx = idx + 1
         -- local site_opt = _checkConfig(_site_path .. "/config.lua")
@@ -715,10 +716,11 @@ _updateNginxConfig = function()
 
     contents = string.gsub(contents, "[ \t]*#[ \t]*_MODULES_", _modules)
 
+    includes_eventinit[#includes_eventinit + 1] = "\n--_INCLUDE_SITES_EVENTINIT_"
+    contents = string.gsub(contents, "--_INCLUDE_SITES_EVENTINIT_", "\n" .. table.concat(includes_eventinit, "\n"))
+
     includes_luainit[#includes_luainit + 1] = "\n--_INCLUDE_SITES_LUAINIT_"
-    contents =
-        --        string.gsub(contents, "\n[ \t]*--[ \t]*--_INCLUDE_SITES_LUAINIT_", "\n" .. table.concat(includes_luainit, "\n"))
-    string.gsub(contents, "--_INCLUDE_SITES_LUAINIT_", "\n" .. table.concat(includes_luainit, "\n"))
+    contents = string.gsub(contents, "--_INCLUDE_SITES_LUAINIT_", "\n" .. table.concat(includes_luainit, "\n"))
 
     includes_luawinit[#includes_luawinit + 1] = "\n--_INCLUDE_SITES_LUAWINIT_"
     contents = string.gsub(contents, "--_INCLUDE_SITES_LUAWINIT_", "\n" .. table.concat(includes_luawinit, "\n"))
